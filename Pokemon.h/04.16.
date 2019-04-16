@@ -1,0 +1,80 @@
+#pragma once
+#include <string>
+#include <string.h>
+#include <iostream>
+
+using namespace std;
+
+enum Type { Fire, Water, Grass };
+
+class Creature {
+private:
+	double hp;
+	string name;
+	double basedmg;
+	const int maxhp;
+public:
+	Creature(double hp, string name, double basedmg, int maxhp) : hp(hp), name(name), basedmg(basedmg), maxhp(maxhp) {};
+	~Creature() {};
+	string getName() { return name; }
+	double getHp() { return hp; }
+	double getBaseDmg() { return basedmg; }
+
+	virtual void Print() { cout << "Name: " << name << "Hp: " << hp << endl; }
+	bool isAlive() { return hp > 0.0; }
+	bool takeDamage(double dmg) {};
+	bool attack() {};
+};
+
+class Pokemon : public Creature {
+private:
+	Type own;
+	Type weakness; // Inkább a MOVE legyen típusos?
+	int lvl;
+	int growth;
+	Move * ability;
+public:
+	Pokemon(double hp, string name, double basedmg, int maxhp, Type own, Type weakness, int lvl = 1, int growth = 0) :Creature(hp, name, basedmg, maxhp), own(own), weakness(weakness), lvl(lvl), growth() { ability = nullptr; }
+	~Pokemon() { delete[] ability; };
+
+
+	void Print() { cout << "Name: " << getName() << "Hp: " << getHp() << "Current lvl: " << lvl << endl; }
+	bool lvlup(int growth) {};
+
+};
+
+class Human : public Creature {
+private:
+	Pokemon * pokemons;
+	int balls;
+	int selectedIndex;
+	int potions;
+public:
+	Human(double hp, string name, double basedmg, int maxhp, int balls, int selectedIndex,  int potions) : Creature(hp, name, basedmg, maxhp), balls(balls), selectedIndex(selectedIndex), potions(potions) { pokemons = nullptr; }
+	~Human() { delete[] pokemons; }
+
+	void Print() { cout << "Name " << getName() << "Hp: " << getHp() << "Number of balls(hehe): " << balls << "Healing potions: " << potions << endl; }
+	bool catchPokemon(){}; //Új Pokemon kerül a tömbünkbe
+	bool switchtoIndex(){} //Kiválasztjuk a Pokemonunkat
+	bool usePotion() {};
+	bool linkArray(Pokemon * pokemons) {};
+	void list() {};
+
+
+
+};
+
+class Move {
+private:
+	Type own;
+	Type weakness;
+	string name;
+	double succfaktor;
+	double failfaktor;
+public:
+	Move(Type own, Type weakness, string name, double succfaktor = 1.25, double failfaktor = 0.75) : own(own), weakness(weakness), name(name), succfaktor(succfaktor), failfaktor(failfaktor) {};
+	~Move() {};
+
+	double use(Pokemon & owner, Type enemy) {};
+	void Print() { cout << "Name: " << name << endl; }
+};
