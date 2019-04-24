@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "Pokemon.h"
 
 class Trainer {
@@ -11,19 +11,19 @@ private:
 	int potions;
 public:
 	Trainer();
-	Trainer(string name, int balls, int potions, int pokemoncount, int selectedIndex=0);
+	Trainer(string name, int balls, int potions, int pokemoncount, int selectedIndex = 0);
 	~Trainer();
 	Trainer(const Trainer & other);
 
 	void Print();
-	void catchPokemon(Pokemon & newpokemon); //Új Pokemon kerül a tömbünkbe
-	void switchtoIndex(int index); //Kiválasztjuk a Pokemonunkat
-	void usePotion(); // Adott indexûre elhasználhatjuk a potinkat
-	void linkArray(Pokemon * Pokemons, int Pokemoncount); // Hozzá csatolunk egy pokemonokból álló tömböt emberünkhöz
+	void catchPokemon(Pokemon & newpokemon); //Ãšj Pokemon kerÃ¼l a tÃ¶mbÃ¼nkbe
+	void switchtoIndex(int index); //KivÃ¡lasztjuk a Pokemonunkat
+	void usePotion(); // Adott indexÃ»re elhasznÃ¡lhatjuk a potinkat
+	void linkArray(Pokemon * Pokemons, int Pokemoncount); // HozzÃ¡ csatolunk egy pokemonokbÃ³l Ã¡llÃ³ tÃ¶mbÃ¶t emberÃ¼nkhÃ¶z
 	void linktoArray(Pokemon & newpokemon);
-	void list(); //Ki listázzuk pokemonjainkat
-	void setBalls(int count); //(labdák számán változtatunk)
-	void setPotions(int count); // Potik számán változtatunk
-	void battle(Creature & enemy); // Ha trainerünk csatázik (A user!!) akkor egy creaturrel áll majd szemben. (Ha nem Trainerrel) Ezen belül switches case-s megoldás lesz + dowhile mert minden addig megy míg valaki elhal
+	void list(); //Ki listÃ¡zzuk pokemonjainkat
+	void setBalls(int count); //(labdÃ¡k szÃ¡mÃ¡n vÃ¡ltoztatunk)
+	void setPotions(int count); // Potik szÃ¡mÃ¡n vÃ¡ltoztatunk
+	void battle(Creature & enemy); // Ha trainerÃ¼nk csatÃ¡zik (A user!!) akkor egy creaturrel Ã¡ll majd szemben. (Ha nem Trainerrel) Ezen belÃ¼l switches case-s megoldÃ¡s lesz + dowhile mert minden addig megy mÃ­g valaki elhal
 	bool alivePokemons();
 };

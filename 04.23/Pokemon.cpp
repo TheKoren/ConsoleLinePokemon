@@ -2,7 +2,7 @@
 
 
 
-Pokemon::Pokemon(double hp, string name, double basedmg, int maxhp, Type own, Type weakness, int lvl = 1, int growth = 0) :Creature(hp, name, basedmg, maxhp), own(own), weakness(weakness), lvl(lvl), growth(growth)
+Pokemon::Pokemon(double hp, string name, double basedmg, int maxhp, Type own, Type weakness, int lvl, int growth) :Creature(hp, name, basedmg, maxhp), own(own), weakness(weakness), lvl(lvl), growth(growth)
 {
 	ability = nullptr;
 	abilitycount = 0;
@@ -88,7 +88,7 @@ bool Pokemon::lvlup(int newgrowth)
 	}
 	else
 		cout << "Not enough experience points to level up..." << endl;
-		return false;
+	return false;
 }
 
 bool Pokemon::isAlive()
@@ -147,13 +147,13 @@ Pokemon& Pokemon::operator=(Pokemon & other)
 		tmp[i] = other.ability[i];
 	}
 	ability = tmp;
-	return *this,
+	return *this;
 }
 
 
 
 
-Move::Move(Type own, Type weakness, string name, double succfaktor = 1.25, double failfaktor = 0.75) : own(own), weakness(weakness), name(name), succfaktor(succfaktor), failfaktor(failfaktor)
+Move::Move(Type own, Type weakness, string name, double succfaktor, double failfaktor) : own(own), weakness(weakness), name(name), succfaktor(succfaktor), failfaktor(failfaktor)
 {
 
 }
@@ -185,10 +185,13 @@ string Move::getName()
 	return this->name;
 }
 
-double Move::use(Pokemon & owner, const Creature & enemy)
+double Move::use(Pokemon & owner, Creature & enemy)
 {
-	if (typeid(enemy).name() == "Pokemon")
+	Creature * a = dynamic_cast<Creature*>(&enemy);
+	if (a == nullptr)
 	{
+		return cruse..
+	}
 		cout << owner.getName() << " is using " << this->name << "." << endl;
 		if (this->own == Neutral)
 		{
@@ -210,10 +213,5 @@ double Move::use(Pokemon & owner, const Creature & enemy)
 			return this->succfaktor * owner.getBaseDmg();
 		}
 
-	}
-}
-
-double Move::use(Pokemon & owner, const Pokemon & enemy)
-{
 	
 }

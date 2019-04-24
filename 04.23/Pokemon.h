@@ -1,7 +1,7 @@
-#pragma once
+ï»¿#pragma once
 #include "Creature.h"
 
-/*Mivel a Pokemon és a Move elég szoros kapcsolatban állnak, így kényelmesebb együtt kezelni õket.  /TODO: Jó ez így? /*/ 
+/*Mivel a Pokemon Ã©s a Move elÃ©g szoros kapcsolatban Ã¡llnak, Ã­gy kÃ©nyelmesebb egyÃ¼tt kezelni Ãµket.  /TODO: JÃ³ ez Ã­gy? /*/
 class Move;
 
 class Pokemon : public Creature {
@@ -30,7 +30,7 @@ public:
 	bool isAlive();
 	void setHp(double newhp);
 	void listAbility();
-	double attack( Pokemon & enemy); // AI!
+	double attack(Pokemon & enemy); // AI!
 	void linkAbilitys(Move * abilitys, int count);
 	void linkAbility(Move & Ability);
 	Pokemon& operator=(Pokemon & other);
@@ -39,7 +39,7 @@ public:
 
 class Move {
 private:
-	Type own;  // Ez igazából nem is kéne, ha meglehetne azt oldani, hogy pl. Víz pokemonhoz csak víz ability menjen. (vagy neutral) / TODO: Kérdezd Labvezt /
+	Type own;  //TODO: Nem lenne rossz, csak nem jÃ³ Ez igazÃ¡bÃ³l nem is kÃ©ne, ha meglehetne azt oldani, hogy pl. VÃ­z pokemonhoz csak vÃ­z ability menjen. (vagy neutral) / TODO: KÃ©rdezd Labvezt /
 	Type weakness;
 	string name;
 	double succfaktor;
@@ -52,7 +52,6 @@ public:
 
 	string getName(); //Getter
 
-	double use(Pokemon & owner, const Creature & enemy);//Valamilyen számítás alapján ki adja a sebzést, + ki irogál diagnosztikai adatokat
+	double use(Pokemon & owner,Creature & enemy);//TODO: Ez Ã­gy nem jÃ³.
 	void Print() { cout << "Name: " << name << endl; }
 };
-

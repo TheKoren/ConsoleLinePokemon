@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <iostream>
 #include <string>
 #include <string.h>
@@ -6,7 +6,23 @@
 
 using namespace std;
 
-enum Type{Water, Fire, Grass, Neutral};  //Neutral csak ability lehet
+enum Type { Water, Fire, Grass, Neutral };  //Neutral csak ability lehet
+
+
+/*class Base{
+private:
+double hp;
+string name;
+double basedmg;
+const int maxhp;
+public:
+Base()
+~Base()
+
+---
+
+TODO: Ez, hogy működjön a heterogén kollekció?
+}*/
 
 class Creature {
 private:
@@ -17,7 +33,7 @@ private:
 public:
 	Creature();
 	Creature(double hp, string name, double basedmg, int maxhp); // Konstruktor && Destuktor
-	~Creature() {};
+	~Creature();
 	Creature(const Creature & other);
 
 	string getName()const; // Getterek
@@ -25,7 +41,7 @@ public:
 	double getBaseDmg() const;
 	int getMaxHp()const;
 
-	virtual void Print(); //Mindenf�le diagnosztika, lek�rdez�, harc
+	virtual void Print(); //Mindenféle diagnosztika, lekérdezõ, harc
 	virtual bool isAlive();
 	virtual void setHp(double newhp);
 	virtual double attack();; // Ez valami sima crit chances legyen

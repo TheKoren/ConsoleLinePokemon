@@ -11,7 +11,7 @@ Creature::~Creature()
 {
 }
 
-Creature::Creature():maxhp(0)
+Creature::Creature() :maxhp(0)
 {
 	hp = 0;
 	name = "Unknown";
@@ -72,7 +72,7 @@ double Creature::attack()
 	if (dice == 100)
 	{
 		cout << "Attack is super effective!\t" << name << " heals itself for 5 healthpoints!" << endl;
-		setHp(hp+5);
+		setHp(hp + 5);
 		cout << "Damage given: " << basedmg * 1.5 << endl;
 		return basedmg * 1.5;
 	}
@@ -86,7 +86,7 @@ double Creature::attack()
 	else if (dice >= 30)
 	{
 		cout << "Attack is nem gyaszos, de nem igazan patent effective!\t" << endl;
-		cout <<"Damage given "<< basedmg << endl;
+		cout << "Damage given " << basedmg << endl;
 		return basedmg;
 	}
 	else

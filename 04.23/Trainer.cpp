@@ -6,7 +6,7 @@ Trainer::Trainer()
 {
 }
 
-Trainer::Trainer(string name, int balls, int potions, int pokemoncount, int selectedIndex=0) : name(name), balls(balls), selectedIndex(selectedIndex), potions(potions), pokemoncount(pokemoncount)
+Trainer::Trainer(string name, int balls, int potions, int pokemoncount, int selectedIndex ) : name(name), balls(balls), selectedIndex(selectedIndex), potions(potions), pokemoncount(pokemoncount)
 {
 	pokemons = nullptr;
 }
@@ -75,7 +75,7 @@ void Trainer::catchPokemon(Pokemon & newpokemon)
 
 void Trainer::switchtoIndex(int index)
 {
-	selectedIndex = index-1; // Mert azt akarom, hogy a listnél ne legyen 0
+	selectedIndex = index - 1; // Mert azt akarom, hogy a listnél ne legyen 0
 }
 
 void Trainer::usePotion()
@@ -141,22 +141,22 @@ void Trainer::battle(Creature & enemy)
 	bool endofbattle = false;
 	cout << "Cool battle-music playing" << endl;
 	cout << "The battle take place here and now." << endl;
-	Creature * ptr;
 	double atk;
 	char c;
+	Creature * ptr;
 	int idx;
 	do {
 		cout << "Your pokemon: "; pokemons[selectedIndex].Print();
 		cout << "Your enemy: "; enemy.Print();
 		cout << "It's your turn!. H - Heal, M - Moves, S - Switch Pokemons, R - Retreat" << endl;
-		cin >> c; 
+		cin >> c;
 		switch (c)
 		{
 		case 'H': usePotion(); break;
-		case 'M': pokemons[selectedIndex].listAbility; cout << "Index of desired move: " << endl; cin >> idx; cout << endl;	atk = pokemons[selectedIndex].getAbility(idx).use(pokemons[selectedIndex], enemy); enemy.setHp(enemy.getHp() - atk); break;
+		case 'M': pokemons[selectedIndex].listAbility(); cout << "Index of desired move: " << endl; cin >> idx; cout << endl; 	atk = pokemons[selectedIndex].getAbility(idx).use(pokemons[selectedIndex], enemy); enemy.setHp(enemy.getHp() - atk); break; //TODO: Hogy adjam át, hogy ne legyen rossz?
 		case 'S': list(); cout << "Index of desired pokemon: " << endl; do { cin >> idx; } while (pokemons[idx - 1].getHp() > 5); cout << endl; switchtoIndex(idx); break;
 		case 'R': cout << "You cannot retreat now" << endl; break;
-		default: cout << "Your pokemon stood still, waiting to get killed" << endl; 
+		default: cout << "Your pokemon stood still, waiting to get killed" << endl;
 		}
 		cout << "It's your enemys turn!" << endl;
 		if (enemy.getHp() > 0.0)
@@ -169,11 +169,17 @@ void Trainer::battle(Creature & enemy)
 			cout << "Your enemy did not survive" << endl;
 			endofbattle = true;
 		}
-		if (pokemons[selectedIndex].getHp() <= 0.0)
+		if (alivePokemons())
 		{
-			cout << "Your pokemon died! Choose a new one: " << endl;
-			list(); cout << "Index of desired pokemon(choose an eligible one): " << endl; do { cin >> idx; } while (pokemons[idx - 1].getHp() > 5); cout << endl; switchtoIndex(idx);
+			if (pokemons[selectedIndex].getHp() <= 0.0)
+			{
+				cout << "Your pokemon died! Choose a new one: " << endl;
+				list(); cout << "Index of desired pokemon(choose an eligible one): " << endl; do { cin >> idx; } while (pokemons[idx - 1].getHp() > 5); cout << endl; switchtoIndex(idx);
+			}
 		}
+		else
+			endofbattle = true;
+			cout << "Did not survive the encounter" << endl;
 
 	} while (!endofbattle);
 }
