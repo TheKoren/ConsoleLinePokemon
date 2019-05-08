@@ -26,7 +26,7 @@ public:
 int Story::arenastart = 7;
 int Story::wildstart = 3;
 
-Story* controller() {
+Story* controller(int *d) {
 	FILE *fp = fopen("controll.txt", "r");
 	if (fp == NULL)
 	{
@@ -36,6 +36,7 @@ Story* controller() {
 	int n, index, left, right;
 	char text[4000];
 	fscanf(fp, "#%d", &n);
+	*d = n;
 	Story * array = new Story[n];
 	for (int i = 0; i < n; i++)
 	{
@@ -64,12 +65,13 @@ Creature* createcreatures(int * d) {
 	fclose(fp);
 	return array1;
 }
-Pokemon* createpokemons()
+Pokemon* createpokemons(int *d)
 {
 	FILE *fp = fopen("pokemons.txt", "r");
 	//exp
 	int a;
 	fscanf(fp, "#%d", &a);
+	*d = a;
 	double hp, basedmg, succfak, failfak;
 	int own, weakness, lvl, growth, abcount;
 	Type own1, weakness1;
@@ -110,7 +112,7 @@ Pokemon* createpokemons()
 	return array2;
 }
 
-Trainer* createArena(Pokemon * array) {
+Trainer* createArena(Pokemon * array, int d) {
 	FILE * fp = fopen("arena.txt", "r");
 	//exp
 	int n;
@@ -118,13 +120,13 @@ Trainer* createArena(Pokemon * array) {
 	Trainer * op = new Trainer[n];
 	char name[20];
 	int g, balls, potions, elementNum, selectedIndex;
-	int size = sizeof(array) / sizeof(Pokemon);
+	int a = d - 3; // ennyi 
 	for (int i = 0; i < n; i++)
 	{
 		fscanf(fp, "%s\t%d\t%d\t%d\t%d", name, &balls, &potions, &elementNum, &selectedIndex);
 		op[i] = Trainer(name, balls, potions, elementNum, selectedIndex);
-		//g = rand() % (size - 1);
-		op[i].linktoArray(array[0]);
+		g = rand() % a + 3;
+		op[i].linktoArray(array[g]);
 	}
 	fclose(fp);
 	return op;
@@ -132,10 +134,12 @@ Trainer* createArena(Pokemon * array) {
 
 int main() {
 	int crethossz;
-	Story * controll = controller();
+	int storyhossz;
+	int pokhossz;
+	Story * controll = controller(&storyhossz);
 	Creature * creatures = createcreatures(&crethossz);
-	Pokemon * pokemons = createpokemons();
-	Trainer * arenaop = createArena(pokemons);
+	Pokemon * pokemons = createpokemons(&pokhossz);
+	Trainer * arenaop = createArena(pokemons, pokhossz);
 	char choice;
 	int dice;
 	string name;
@@ -155,11 +159,11 @@ int main() {
 		cin >> choice;
 		switch (choice) {
 		case 'R': {currentnode = controll[currentnode].getright(); controll[currentnode].Print(); 
-			if (controll[currentnode].getright() == controll[currentnode].getleft()) {
+			if (controll[currentnode].getright() == controll[currentnode].getleft() && controll[currentnode].getright()== storyhossz-1){
 				choice = 'X';
 				break;
 			}
-			else if (controll[currentnode].getid()> controll[currentnode].getarena()) {
+			else if (controll[currentnode].getid()>= controll[currentnode].getarena()) {
 
 				Player.battle(arenaop[opponents].getpokemons()[0]); break;
 			}

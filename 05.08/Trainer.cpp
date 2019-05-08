@@ -153,9 +153,9 @@ void Trainer::battle(Creature & enemy)
 		{
 		case 'H': usePotion(); break;
 		case 'M': pokemons[selectedIndex].listAbility(); cout << "Index of desired move: " << endl; cin >> idx; cout << endl; 	atk = pokemons[selectedIndex].getAbility(idx-1).use(pokemons[selectedIndex], enemy); enemy.setHp(enemy.getHp() - atk); break; //TODO: Hogy adjam át, hogy ne legyen rossz?
-		case 'S': list(); cout << "Index of desired pokemon: " << endl; do { cin >> idx; } while (pokemons[idx - 1].getHp() > 5); cout << endl; switchtoIndex(idx); break;
+		case 'S': list(); cout << "Index of desired pokemon: " << endl; cin >> idx; cout << endl; switchtoIndex(idx); break;
 		case 'R': cout << "You cannot retreat now" << endl; break;
-		default: cout << "Your pokemon stood still, waiting to get killed" << endl;
+		default: cout << "Your pokemon stood still, waiting to get killed" << endl; break;
 		}
 		cout << "It's your enemys turn!" << endl;
 		if (enemy.getHp() > 0.0)
@@ -183,6 +183,8 @@ void Trainer::battle(Creature & enemy)
 		}
 
 	} while (!endofbattle);
+
+	enemy.setHp(enemy.getMaxHp());
 }
 
 void Trainer::battle(Pokemon & enemy)
@@ -202,7 +204,7 @@ void Trainer::battle(Pokemon & enemy)
 		{
 		case 'H': usePotion(); break;
 		case 'M': pokemons[selectedIndex].listAbility(); cout << "Index of desired move: " << endl; cin >> idx; cout << endl; 	atk = pokemons[selectedIndex].getAbility(idx-1).use(pokemons[selectedIndex], enemy); enemy.setHp(enemy.getHp() - atk); break; //TODO: Hogy adjam át, hogy ne legyen rossz?
-		case 'S': list(); cout << "Index of desired pokemon: " << endl; do { cin >> idx; } while (pokemons[idx - 1].getHp() > 5); cout << endl; switchtoIndex(idx); break;
+		case 'S': list(); cout << "Index of desired pokemon: " << endl;  cin >> idx; cout << endl; switchtoIndex(idx); break;
 		case 'R': cout << "You cannot retreat now" << endl; break;
 		default: cout << "Your pokemon stood still, waiting to get killed" << endl;
 		}
@@ -232,6 +234,8 @@ void Trainer::battle(Pokemon & enemy)
 		}
 
 	} while (!endofbattle);
+
+	enemy.setHp(enemy.getMaxHp());
 }
 
 bool Trainer::alivePokemons()
