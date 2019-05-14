@@ -198,8 +198,25 @@ Trainer* createArena(Pokemon * array, int d) {
 	return op;
 }
 
+void picture() {
+	ifstream fp;
+	fp.open("picture.txt");
+	if (!fp.is_open())
+	{
+		throw exception("Cannot load picture");
+	}
+	string text;
+	while (getline(fp, text))
+	{
+		cout << text << endl;
+	}
+	fp.close();
+	cout << "."; Sleep(2000); cout << "."; Sleep(2000); cout << "."; Sleep(2000); cout << "." << endl;
+	system("cls");
+}
+
 int main() {
-	
+	picture();
 	srand(time(NULL));			// A randomizált számok mások legyenek, minden lefutáskor.
 
 	int crethossz;				// Szükséges tömbök deklarálása, feltöltése, lekezelése.
@@ -306,6 +323,6 @@ int main() {
 	delete[] pokemons;
 	delete[] arenaop;
 
-	getchar();
+
 	return 0;
 }
